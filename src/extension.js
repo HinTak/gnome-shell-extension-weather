@@ -68,6 +68,22 @@ const WEATHER_SHOW_COMMENT_IN_PANEL_KEY = 'show-comment-in-panel';	// Weather ex
 const WEATHER_WIND_DIRECTION_KEY = 'wind-direction';			// Weather extension setting
 const WEATHER_DEBUG_EXTENSION = 'debug-extension';			// Weather extension setting
 
+Clutter.Actor.prototype.raise_top = function raise_top() {
+	const parent = this.get_parent();
+	if (!parent) {
+		return;
+	}
+	parent.set_child_above_sibling(this, null);
+}
+
+Clutter.Actor.prototype.reparent = function reparent(newParent) {
+	const parent = this.get_parent();
+	if (parent) {
+		parent.remove_child(this);
+	}
+	newParent.add_child(this);
+}
+
 	// Init Weather class //
 	const Weather = new Lang.Class(
 	{
