@@ -175,11 +175,15 @@ Clutter.Actor.prototype.reparent = function reparent(newParent) {
 		this.location = this.city;
 			if(this.city_name)
 			{											this.status("Location ("+this.city_name+") loaded");
-			this.info = new GWeather.Info({location: this.location});				this.status("Information loaded");
-
+			this.info = new GWeather.Info({
+				application_id: 'org.gnome.Shell',
+				contact_info: 'https://gitlab.gnome.org/GNOME/gnome-shell/-/raw/master/gnome-shell.doap',
+				location: this.location,
+				});
+			this.status("Information loaded");
 			this.info.set_enabled_providers(GWeather.Provider.METAR |
-					                GWeather.Provider.OWM |
-							GWeather.Provider.YR_NO);
+					                GWeather.Provider.MET_NO |
+							GWeather.Provider.OWM);
 
 			this.infoC = this.info.connect("updated",function(){that.refresh();that.status(0);});	this.status("Information connection started");
 			}
